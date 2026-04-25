@@ -14,19 +14,120 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- Наш CSS -->
-  <script type="module" crossorigin src="/assets/index-ZkwZeDEA.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DvgDHwRm.css">
-  <script type="module" crossorigin src="/assets/index-S_Naiaim.js"></script>
+  <style>
+    /* ===== NOMAD MINIMALISM ===== */
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Manrope',system-ui,-apple-system,sans-serif;background:#0A1628;color:#FFF;line-height:1.6;-webkit-font-smoothing:antialiased}
+    .container{max-width:1140px;margin:0 auto;padding:0 24px}
+    .section{padding:80px 0}
+    .section--alt{background:#0C1C36}
+    .section__title{font-family:'Tenor Sans',serif;font-size:32px;text-align:center;margin-bottom:12px;letter-spacing:0.5px;position:relative}
+    .section__title::after{content:'';display:block;width:60px;height:2px;background:#FFF;margin:12px auto 0;opacity:0.4}
+    .section__subtitle{text-align:center;color:rgba(255,255,255,0.55);font-size:16px;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+    .subsection__title{font-family:'Tenor Sans',serif;font-size:20px;margin:36px 0 20px;letter-spacing:0.5px}
+    .flow>*+*{margin-top:16px}
+
+    .header{background:rgba(10,22,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100}
+    .header__inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+    .logo{text-decoration:none;display:flex;align-items:center}
+    .logo img{height:40px;width:auto;display:block}
+    .nav{display:flex;gap:28px}
+    .nav a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.3px;transition:color 0.25s}
+    .nav a:hover{color:#FFF}
+
+    .lang-switcher{display:flex;gap:4px}
+    .lang-btn{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15);padding:5px 10px;border-radius:4px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.5px;transition:all 0.25s}
+    .lang-btn:hover{color:#FFF;border-color:rgba(255,255,255,0.4)}
+    .lang-btn.active{background:#FFF;color:#0A1628;border-color:#FFF}
+
+    .ornament{height:6px;background-repeat:repeat-x;background-position:center;background-size:auto 100%;opacity:0.25}
+    .ornament--header{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cpath d='M0 3 L10 0 L20 3 L30 0 L40 3' stroke='white' stroke-width='1' fill='none'/%3E%3C/svg%3E")}
+    .ornament--divider{height:8px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='8'%3E%3Cpath d='M0 4 L10 1 L20 4 L30 1 L40 4 L50 1 L60 4' stroke='white' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");margin:20px 0}
+    .ornament--footer{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cpath d='M0 3 L10 0 L20 3 L30 0 L40 3' stroke='white' stroke-width='1' fill='none'/%3E%3C/svg%3E");margin-bottom:48px}
+    .hero__watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M100 20 C140 20 170 50 170 90 C170 130 140 160 100 180 C60 160 30 130 30 90 C30 50 60 20 100 20 Z M100 50 C75 50 55 70 55 90 C55 110 75 130 100 145 C125 130 145 110 145 90 C145 70 125 50 100 50 Z M100 70 C88 70 78 80 78 90 C78 100 88 110 100 120 C112 110 122 100 122 90 C122 80 112 70 100 70 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:contain;pointer-events:none}
+
+    .hero{background:#0A1628;padding:50px 0 60px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .hero__inner{position:relative;z-index:1}
+    .hero__title{font-family:'Tenor Sans',serif;font-size:42px;line-height:1.15;letter-spacing:1px;margin-bottom:20px}
+    .hero__desc{font-size:17px;color:rgba(255,255,255,0.55);max-width:580px;margin:0 auto 28px;line-height:1.7}
+    .hero__buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    .btn{display:inline-block;padding:13px 30px;border-radius:4px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.5px;cursor:pointer;border:2px solid transparent;transition:all 0.3s ease}
+    .btn--primary{background:#FFF;color:#0A1628;border-color:#FFF}
+    .btn--primary:hover{background:#C9A84C;border-color:#C9A84C;color:#0A1628;transform:translateY(-2px)}
+    .btn--ghost{background:transparent;color:#FFF;border-color:rgba(255,255,255,0.4)}
+    .btn--ghost:hover{border-color:#FFF;background:rgba(255,255,255,0.06);transform:translateY(-2px)}
+
+    .numbers{padding:48px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .numbers__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    .numbers__item{text-align:center;padding:16px;border:1px solid rgba(255,255,255,0.08);border-radius:4px}
+    .numbers__value{display:block;font-family:'Tenor Sans',serif;font-size:36px;letter-spacing:0.5px;margin-bottom:6px}
+    .numbers__label{font-size:12px;color:rgba(255,255,255,0.45);letter-spacing:0.5px;text-transform:uppercase}
+
+    .about__grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:32px}
+    .about__text{color:rgba(255,255,255,0.7);font-size:15px}
+    .feature-list{list-style:none;display:flex;flex-direction:column;gap:1px}
+    .feature-list__item{padding:14px 20px;border:1px solid rgba(255,255,255,0.1);border-radius:4px;font-size:14px;color:rgba(255,255,255,0.8);position:relative;padding-left:36px}
+    .feature-list__item::before{content:'◆';position:absolute;left:14px;top:14px;font-size:8px;color:rgba(255,255,255,0.35)}
+
+    .card-grid{display:grid;gap:16px;margin-bottom:24px}
+    .card-grid--2{grid-template-columns:repeat(2,1fr)}
+    .card-grid--3{grid-template-columns:repeat(3,1fr)}
+    .card{border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:18px;font-size:14px;color:rgba(255,255,255,0.75);text-align:center;transition:border-color 0.3s,transform 0.3s}
+    .card:hover{border-color:rgba(255,255,255,0.4);transform:translateY(-2px)}
+    .card strong{color:#FFF;font-weight:600}
+    .card--padded{padding:28px;text-align:left}
+    .card__title{font-family:'Tenor Sans',serif;font-size:18px;color:#FFF;margin-bottom:14px;letter-spacing:0.3px}
+    .card__tag{display:inline-block;font-size:11px;letter-spacing:0.8px;text-transform:uppercase;color:#C9A84C;margin-bottom:10px}
+    .card p{color:rgba(255,255,255,0.6);margin-bottom:6px;font-size:14px}
+    .card p strong{color:#FFF}
+
+    .meter{max-width:520px;margin:40px auto 0}
+    .meter__header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+    .meter__label{font-size:13px;color:rgba(255,255,255,0.55);letter-spacing:0.5px}
+    .meter__value{font-family:'Tenor Sans',serif;font-size:24px}
+    .meter__track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+    .meter__fill{height:100%;background:#FFF;border-radius:3px;transition:width 0s}
+
+    .map-wrapper{max-width:1140px;margin:0 auto;padding:0 24px}
+    #map{height:450px;width:100%;border:1px solid rgba(255,255,255,0.15);border-radius:4px}
+    .leaflet-container{background:#0A1628!important}
+    .leaflet-bar{border:1px solid rgba(255,255,255,0.2)!important;border-radius:4px!important}
+    .leaflet-bar a{background:#0C1C36!important;border-bottom:1px solid rgba(255,255,255,0.1)!important;color:#FFF!important}
+    .leaflet-bar a:hover{background:#1C3059!important}
+    .leaflet-popup-content-wrapper{background:#0C1C36!important;color:#FFF!important;border-radius:4px!important}
+    .leaflet-popup-tip{background:#0C1C36!important}
+
+    .footer{background:#060F1E;padding:0 0 28px;border-top:1px solid rgba(255,255,255,0.06)}
+    .footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px}
+    .footer__title{font-family:'Tenor Sans',serif;font-size:16px;color:#FFF;margin-bottom:14px;letter-spacing:0.5px}
+    .footer__col p{color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:6px}
+    .footer__col a{display:block;color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;margin-bottom:8px;transition:color 0.25s}
+    .footer__col a:hover{color:#FFF}
+    .footer__bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);font-size:12px}
+
+    @media(max-width:900px){
+      .numbers__grid{grid-template-columns:repeat(2,1fr)}
+      .about__grid{grid-template-columns:1fr}
+      .card-grid--3{grid-template-columns:repeat(2,1fr)}
+      .footer__grid{grid-template-columns:1fr;gap:28px}
+      .hero__title{font-size:38px}
+      .nav{display:none}
+    }
+    @media(max-width:560px){
+      .numbers__grid{grid-template-columns:1fr}
+      .card-grid--3,.card-grid--2{grid-template-columns:1fr}
+      .hero__buttons{flex-direction:column;align-items:center}
+      .section{padding:48px 0}
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ==================== ШАПКА ==================== -->
   <header class="header">
     <div class="container header__inner">
-      <a href="#" class="logo">
-        <img src="/assets/logo-BfcXvs13-BfcXvs13-BfcXvs13.png" alt="МЦПС Хоргос" class="logo__img" />
-      </a>
+      <a href="#" class="logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Crect width='120' height='40' fill='%23FFF' rx='4'/%3E%3Ctext x='60' y='26' text-anchor='middle' font-family='Tenor Sans,serif' font-size='18' fill='%230A1628' letter-spacing='2'%3EKHORGOS%3C/text%3E%3C/svg%3E" alt="МЦПС Хоргос" style="height:40px" /></a>
       <div class="lang-switcher">
         <button class="lang-btn active" data-lang="ru">RU</button>
         <button class="lang-btn" data-lang="kz">KZ</button>
@@ -43,71 +144,38 @@
     <div class="ornament ornament--header"></div>
   </header>
 
-  <!-- ==================== ГЛАВНЫЙ ЭКРАН ==================== -->
   <section class="hero">
-    <div class="hero__watermark" aria-hidden="true"></div>
+    <div class="hero__watermark"></div>
     <div class="container hero__inner">
-      <h1 class="hero__title"
-          data-ru="Ваши ворота<br />в Азию"
-          data-kz="Азияға апарар<br />қақпаңыз"
-          data-zh="通往亚洲<br />的大门">Ваши ворота<br />в Азию</h1>
-
-      <p class="hero__desc"
-         data-ru="Единственный в мире трансграничный центр сотрудничества. Одна&nbsp;территория — две&nbsp;страны, безграничные&nbsp;возможности"
-         data-kz="Әлемдегі жалғыз трансшекаралық ынтымақтастық орталығы. Бір&nbsp;аумақ — екі&nbsp;ел, шексіз&nbsp;мүмкіндіктер"
-         data-zh="世界上唯一的跨境合作中心。一个&nbsp;区域&nbsp;—&nbsp;两个&nbsp;国家，无限&nbsp;机遇">Единственный в мире трансграничный центр сотрудничества. Одна&nbsp;территория — две&nbsp;страны, безграничные&nbsp;возможности</p>
-
+      <h1 class="hero__title" data-ru="Ваши ворота<br />в Азию" data-kz="Азияға апарар<br />қақпаңыз" data-zh="通往亚洲<br />的大门">Ваши ворота<br />в Азию</h1>
+      <p class="hero__desc" data-ru="Единственный в мире трансграничный центр сотрудничества. Одна&nbsp;территория — две&nbsp;страны, безграничные&nbsp;возможности" data-kz="Әлемдегі жалғыз трансшекаралық ынтымақтастық орталығы. Бір&nbsp;аумақ — екі&nbsp;ел, шексіз&nbsp;мүмкіндіктер" data-zh="世界上唯一的跨境合作中心。一个&nbsp;区域&nbsp;—&nbsp;两个&nbsp;国家，无限&nbsp;机遇">Единственный в мире трансграничный центр сотрудничества. Одна&nbsp;территория — две&nbsp;страны, безграничные&nbsp;возможности</p>
       <div class="hero__buttons">
-        <a href="#invest" class="btn btn--primary"
-           data-ru="Стать инвестором"
-           data-kz="Инвестор болу"
-           data-zh="成为投资者">Стать инвестором</a>
-        <a href="#visitors" class="btn btn--ghost"
-           data-ru="Планирую поездку"
-           data-kz="Сапарды жоспарлау"
-           data-zh="计划行程">Планирую поездку</a>
+        <a href="#invest" class="btn btn--primary" data-ru="Стать инвестором" data-kz="Инвестор болу" data-zh="成为投资者">Стать инвестором</a>
+        <a href="#visitors" class="btn btn--ghost" data-ru="Планирую поездку" data-kz="Сапарды жоспарлау" data-zh="计划行程">Планирую поездку</a>
       </div>
     </div>
   </section>
 
-  <!-- ==================== ЦИФРЫ ==================== -->
   <section class="numbers">
     <div class="container">
       <div class="numbers__grid">
-        <div class="numbers__item">
-          <span class="numbers__value">0</span>
-          <span class="numbers__label" data-ru="общая площадь" data-kz="жалпы аумағы" data-zh="总面积">общая площадь</span>
-        </div>
-        <div class="numbers__item">
-          <span class="numbers__value">0</span>
-          <span class="numbers__label" data-ru="посетителей в сутки" data-kz="күніне келушілер" data-zh="每日访客">посетителей в сутки</span>
-        </div>
-        <div class="numbers__item">
-          <span class="numbers__value">0</span>
-          <span class="numbers__label" data-ru="компаний-резидентов" data-kz="резидент-компаниялар" data-zh="入驻企业">компаний-резидентов</span>
-        </div>
-        <div class="numbers__item">
-          <span class="numbers__value">0</span>
-          <span class="numbers__label" data-ru="товарооборот с 2012" data-kz="2012 жылдан бергі тауар айналымы" data-zh="2012年至今贸易额">товарооборот с 2012</span>
-        </div>
+        <div class="numbers__item"><span class="numbers__value">5,6&nbsp;км²</span><span class="numbers__label" data-ru="общая площадь" data-kz="жалпы аумағы" data-zh="总面积">общая площадь</span></div>
+        <div class="numbers__item"><span class="numbers__value">5&nbsp;000</span><span class="numbers__label" data-ru="посетителей в сутки" data-kz="күніне келушілер" data-zh="每日访客">посетителей в сутки</span></div>
+        <div class="numbers__item"><span class="numbers__value">1&nbsp;200+</span><span class="numbers__label" data-ru="компаний-резидентов" data-kz="резидент-компаниялар" data-zh="入驻企业">компаний-резидентов</span></div>
+        <div class="numbers__item"><span class="numbers__value">$15&nbsp;млрд</span><span class="numbers__label" data-ru="товарооборот с 2012" data-kz="2012 жылдан бергі тауар айналымы" data-zh="2012年至今贸易额">товарооборот с 2012</span></div>
       </div>
     </div>
   </section>
 
   <div class="ornament ornament--divider"></div>
 
-  <!-- ==================== О ЦЕНТРЕ ==================== -->
   <section class="section" id="about">
     <div class="container">
       <h2 class="section__title" data-ru="О центре" data-kz="Орталық туралы" data-zh="关于中心">О центре</h2>
       <div class="about__grid">
         <div class="about__text flow">
-          <p data-ru="Международный центр приграничного сотрудничества «Хоргос»&nbsp;— уникальный проект, работающий по принципу «одна&nbsp;территория&nbsp;— две&nbsp;страны». Расположен на границе Казахстана и Китая."
-             data-kz="«Қорғас» халықаралық шекара маңы ынтымақтастық орталығы&nbsp;— «бір&nbsp;аумақ&nbsp;— екі&nbsp;ел» қағидаты бойынша жұмыс істейтін бірегей жоба. Қазақстан мен Қытай шекарасында орналасқан."
-             data-zh="«霍尔果斯»国际跨境合作中心&nbsp;— 一个独特的项目，按照«一个&nbsp;区域&nbsp;—&nbsp;两个&nbsp;国家»的原则运作。位于哈萨克斯坦和中国边境。">Международный центр приграничного сотрудничества «Хоргос»&nbsp;— уникальный проект, работающий по принципу «одна&nbsp;территория&nbsp;— две&nbsp;страны». Расположен на границе Казахстана и Китая.</p>
-          <p data-ru="На территории Центра действует специальная экономическая зона с особым правовым режимом. Товары из более чем 40&nbsp;стран мира доступны без таможенных пошлин."
-             data-kz="Орталық аумағында ерекше құқықтық режимі бар арнайы экономикалық аймақ жұмыс істейді. Әлемнің 40-тан астам елінің тауарлары кедендік бажсыз қолжетімді."
-             data-zh="中心境内设有特殊法律制度的特别经济区。来自世界40多个国家的商品免征关税。">На территории Центра действует специальная экономическая зона с особым правовым режимом. Товары из более чем 40&nbsp;стран мира доступны без таможенных пошлин.</p>
+          <p data-ru="Международный центр приграничного сотрудничества «Хоргос»&nbsp;— уникальный проект, работающий по принципу «одна&nbsp;территория&nbsp;— две&nbsp;страны». Расположен на границе Казахстана и Китая." data-kz="«Қорғас» халықаралық шекара маңы ынтымақтастық орталығы&nbsp;— «бір&nbsp;аумақ&nbsp;— екі&nbsp;ел» қағидаты бойынша жұмыс істейтін бірегей жоба. Қазақстан мен Қытай шекарасында орналасқан." data-zh="«霍尔果斯»国际跨境合作中心&nbsp;— 一个独特的项目，按照«一个&nbsp;区域&nbsp;—&nbsp;两个&nbsp;国家»的原则运作。位于哈萨克斯坦和中国边境。">Международный центр приграничного сотрудничества «Хоргос»&nbsp;— уникальный проект, работающий по принципу «одна&nbsp;территория&nbsp;— две&nbsp;страны». Расположен на границе Казахстана и Китая.</p>
+          <p data-ru="На территории Центра действует специальная экономическая зона с особым правовым режимом. Товары из более чем 40&nbsp;стран мира доступны без таможенных пошлин." data-kz="Орталық аумағында ерекше құқықтық режимі бар арнайы экономикалық аймақ жұмыс істейді. Әлемнің 40-тан астам елінің тауарлары кедендік бажсыз қолжетімді." data-zh="中心境内设有特殊法律制度的特别经济区。来自世界40多个国家的商品免征关税。">На территории Центра действует специальная экономическая зона с особым правовым режимом. Товары из более чем 40&nbsp;стран мира доступны без таможенных пошлин.</p>
         </div>
         <ul class="feature-list">
           <li class="feature-list__item" data-ru="Единая территория Казахстана и Китая" data-kz="Қазақстан мен Қытайдың бірыңғай аумағы" data-zh="哈萨克斯坦和中国的统一区域">Единая территория Казахстана и Китая</li>
@@ -121,14 +189,10 @@
     </div>
   </section>
 
-  <!-- ==================== ИНВЕСТОРАМ ==================== -->
   <section class="section section--alt" id="invest">
     <div class="container">
       <h2 class="section__title" data-ru="Инвесторам" data-kz="Инвесторларға" data-zh="投资者">Инвесторам</h2>
-      <p class="section__subtitle" data-ru="Специальная экономическая зона «Хоргос» предлагает уникальные&nbsp;условия"
-         data-kz="«Қорғас» арнайы экономикалық аймағы бірегей&nbsp;шарттар ұсынады"
-         data-zh="«霍尔果斯»经济特区提供独特的&nbsp;条件">Специальная экономическая зона «Хоргос» предлагает уникальные&nbsp;условия</p>
-
+      <p class="section__subtitle" data-ru="Специальная экономическая зона «Хоргос» предлагает уникальные&nbsp;условия" data-kz="«Қорғас» арнайы экономикалық аймағы бірегей&nbsp;шарттар ұсынады" data-zh="«霍尔果斯»经济特区提供独特的&nbsp;条件">Специальная экономическая зона «Хоргос» предлагает уникальные&nbsp;условия</p>
       <h3 class="subsection__title" data-ru="Налоговые преференции" data-kz="Салықтық жеңілдіктер" data-zh="税收优惠">Налоговые преференции</h3>
       <div class="card-grid card-grid--3">
         <div class="card"><strong>0%</strong> — <span data-ru="Корпоративный подоходный налог" data-kz="Корпоративтік табыс салығы" data-zh="企业所得税">Корпоративный подоходный налог</span></div>
@@ -136,7 +200,6 @@
         <div class="card"><strong>0%</strong> — <span data-ru="Земельный налог" data-kz="Жер салығы" data-zh="土地税">Земельный налог</span></div>
         <div class="card"><strong>0%</strong> — <span data-ru="НДС на территории СЭЗ" data-kz="АЭА аумағында ҚҚС" data-zh="特区内增值税">НДС на территории СЭЗ</span></div>
       </div>
-
       <h3 class="subsection__title" data-ru="Преимущества" data-kz="Артықшылықтар" data-zh="优势">Преимущества</h3>
       <div class="card-grid card-grid--3">
         <div class="card" data-ru="Готовая инфраструктура" data-kz="Дайын инфрақұрылым" data-zh="现成的基础设施">Готовая инфраструктура</div>
@@ -146,134 +209,110 @@
         <div class="card" data-ru="Гранты до $150 000 на инфраструктуру" data-kz="Инфрақұрылымға $150 000 дейін гранттар" data-zh="基础设施资助高达15万美元">Гранты до $150 000 на инфраструктуру</div>
         <div class="card" data-ru="ИП может быть участником СЭЗ" data-kz="ЖК АЭА қатысушысы бола алады" data-zh="个体工商户可成为特区参与者">ИП может быть участником СЭЗ</div>
       </div>
-
       <div class="meter">
-        <div class="meter__header">
-          <span class="meter__label" data-ru="Заполняемость территории СЭЗ" data-kz="АЭА аумағының толуы" data-zh="特区面积占用率">Заполняемость территории СЭЗ</span>
-          <span class="meter__value" id="occupancyValue">0%</span>
-        </div>
-        <div class="meter__track">
-          <div class="meter__fill" id="occupancyFill" style="width: 0%;"></div>
-        </div>
+        <div class="meter__header"><span class="meter__label" data-ru="Заполняемость территории СЭЗ" data-kz="АЭА аумағының толуы" data-zh="特区面积占用率">Заполняемость территории СЭЗ</span><span class="meter__value" id="occupancyValue">82%</span></div>
+        <div class="meter__track"><div class="meter__fill" id="occupancyFill" style="width:82%;"></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== ПОСЕТИТЕЛЯМ ==================== -->
   <section class="section" id="visitors">
     <div class="container">
       <h2 class="section__title" data-ru="Посетителям" data-kz="Келушілерге" data-zh="游客须知">Посетителям</h2>
-      <p class="section__subtitle" data-ru="Всё, что нужно знать перед поездкой"
-         data-kz="Сапар алдында білу қажет барлық нәрсе"
-         data-zh="出行前须知">Всё, что нужно знать перед поездкой</p>
+      <p class="section__subtitle" data-ru="Всё, что нужно знать перед поездкой" data-kz="Сапар алдында білу қажет барлық нәрсе" data-zh="出行前须知">Всё, что нужно знать перед поездкой</p>
       <div class="card-grid card-grid--2">
-        <div class="card card--padded">
-          <h3 class="card__title" data-ru="Правила ввоза товаров" data-kz="Тауарларды әкелу ережелері" data-zh="商品携带规定">Правила ввоза товаров</h3>
-          <p data-ru="Беспошлинный ввоз: до <strong>50 кг</strong> и <strong>€1 500</strong>"
-             data-kz="Бажсыз әкелу: <strong>50 кг</strong> және <strong>€1 500</strong> дейін"
-             data-zh="免税携带：不超过<strong>50公斤</strong>和<strong>1,500欧元</strong>">Беспошлинный ввоз: до <strong>50 кг</strong> и <strong>€1 500</strong></p>
-          <p data-ru="Свыше нормы — пошлина 30% от стоимости, но не менее €4 за 1 кг"
-             data-kz="Нормадан асып кетсе — құнының 30% баж салығы, бірақ 1 кг үшін €4 кем емес"
-             data-zh="超出部分 — 价值的30%关税，每公斤不少于4欧元">Свыше нормы — пошлина 30% от стоимости, но не менее €4 за 1 кг</p>
-        </div>
-        <div class="card card--padded">
-          <h3 class="card__title" data-ru="Режим работы" data-kz="Жұмыс режимі" data-zh="营业时间">Режим работы</h3>
-          <p data-ru="Ежедневно, без выходных" data-kz="Күн сайын, демалыссыз" data-zh="每天，无休">Ежедневно, без выходных</p>
-          <p data-ru="Казахстанская часть: 09:00 – 18:00" data-kz="Қазақстан бөлігі: 09:00 – 18:00" data-zh="哈方区域：09:00 – 18:00">Казахстанская часть: 09:00 – 18:00</p>
-          <p data-ru="Китайская часть: 10:00 – 19:00 (время Пекина)" data-kz="Қытай бөлігі: 10:00 – 19:00 (Пекин уақыты)" data-zh="中方区域：10:00 – 19:00（北京时间）">Китайская часть: 10:00 – 19:00 (время Пекина)</p>
-        </div>
-        <div class="card card--padded">
-          <h3 class="card__title" data-ru="Документы" data-kz="Құжаттар" data-zh="证件">Документы</h3>
-          <p data-ru="Гражданам Казахстана — удостоверение личности" data-kz="Қазақстан азаматтарына — жеке куәлік" data-zh="哈萨克斯坦公民 — 身份证">Гражданам Казахстана — удостоверение личности</p>
-          <p data-ru="Гражданам РФ — загранпаспорт" data-kz="РФ азаматтарына — шетелдік паспорт" data-zh="俄罗斯公民 — 出国护照">Гражданам РФ — загранпаспорт</p>
-          <p data-ru="Безвизовый режим на 30 дней" data-kz="30 күнге визасыз режим" data-zh="30天免签">Безвизовый режим на 30 дней</p>
-        </div>
-        <div class="card card--padded">
-          <h3 class="card__title" data-ru="Как добраться" data-kz="Қалай жетуге болады" data-zh="如何到达">Как добраться</h3>
-          <p data-ru="Автомобилем: трасса А-2 Алматы — Хоргос (~300 км)" data-kz="Автокөлікпен: А-2 Алматы — Қорғас тас жолы (~300 км)" data-zh="自驾：A-2公路 阿拉木图 — 霍尔果斯（约300公里）">Автомобилем: трасса А-2 Алматы — Хоргос (~300 км)</p>
-          <p data-ru="Автобусом: от автовокзала «Сайран» (Алматы)" data-kz="Автобуспен: «Сайран» автовокзалынан (Алматы)" data-zh="公交：从«萨伊兰»汽车站（阿拉木图）">Автобусом: от автовокзала «Сайран» (Алматы)</p>
-          <p data-ru="Поездом: до станции Алтынколь, далее такси" data-kz="Пойызбен: Алтынкөл станциясына дейін, одан әрі такси" data-zh="火车：至阿尔金科里站，然后打车">Поездом: до станции Алтынколь, далее такси</p>
-        </div>
+        <div class="card card--padded"><h3 class="card__title" data-ru="Правила ввоза товаров" data-kz="Тауарларды әкелу ережелері" data-zh="商品携带规定">Правила ввоза товаров</h3><p data-ru="Беспошлинный ввоз: до <strong>50 кг</strong> и <strong>€1 500</strong>" data-kz="Бажсыз әкелу: <strong>50 кг</strong> және <strong>€1 500</strong> дейін" data-zh="免税携带：不超过<strong>50公斤</strong>和<strong>1,500欧元</strong>">Беспошлинный ввоз: до <strong>50 кг</strong> и <strong>€1 500</strong></p><p data-ru="Свыше нормы — пошлина 30% от стоимости, но не менее €4 за 1 кг" data-kz="Нормадан асып кетсе — құнының 30% баж салығы, бірақ 1 кг үшін €4 кем емес" data-zh="超出部分 — 价值的30%关税，每公斤不少于4欧元">Свыше нормы — пошлина 30% от стоимости, но не менее €4 за 1 кг</p></div>
+        <div class="card card--padded"><h3 class="card__title" data-ru="Режим работы" data-kz="Жұмыс режимі" data-zh="营业时间">Режим работы</h3><p data-ru="Ежедневно, без выходных" data-kz="Күн сайын, демалыссыз" data-zh="每天，无休">Ежедневно, без выходных</p><p data-ru="Казахстанская часть: 09:00 – 18:00" data-kz="Қазақстан бөлігі: 09:00 – 18:00" data-zh="哈方区域：09:00 – 18:00">Казахстанская часть: 09:00 – 18:00</p><p data-ru="Китайская часть: 10:00 – 19:00 (время Пекина)" data-kz="Қытай бөлігі: 10:00 – 19:00 (Пекин уақыты)" data-zh="中方区域：10:00 – 19:00（北京时间）">Китайская часть: 10:00 – 19:00 (время Пекина)</p></div>
+        <div class="card card--padded"><h3 class="card__title" data-ru="Документы" data-kz="Құжаттар" data-zh="证件">Документы</h3><p data-ru="Гражданам Казахстана — удостоверение личности" data-kz="Қазақстан азаматтарына — жеке куәлік" data-zh="哈萨克斯坦公民 — 身份证">Гражданам Казахстана — удостоверение личности</p><p data-ru="Гражданам РФ — загранпаспорт" data-kz="РФ азаматтарына — шетелдік паспорт" data-zh="俄罗斯公民 — 出国护照">Гражданам РФ — загранпаспорт</p><p data-ru="Безвизовый режим на 30 дней" data-kz="30 күнге визасыз режим" data-zh="30天免签">Безвизовый режим на 30 дней</p></div>
+        <div class="card card--padded"><h3 class="card__title" data-ru="Как добраться" data-kz="Қалай жетуге болады" data-zh="如何到达">Как добраться</h3><p data-ru="Автомобилем: трасса А-2 Алматы — Хоргос (~300 км)" data-kz="Автокөлікпен: А-2 Алматы — Қорғас тас жолы (~300 км)" data-zh="自驾：A-2公路 阿拉木图 — 霍尔果斯（约300公里）">Автомобилем: трасса А-2 Алматы — Хоргос (~300 км)</p><p data-ru="Автобусом: от автовокзала «Сайран» (Алматы)" data-kz="Автобуспен: «Сайран» автовокзалынан (Алматы)" data-zh="公交：从«萨伊兰»汽车站（阿拉木图）">Автобусом: от автовокзала «Сайран» (Алматы)</p><p data-ru="Поездом: до станции Алтынколь, далее такси" data-kz="Пойызбен: Алтынкөл станциясына дейін, одан әрі такси" data-zh="火车：至阿尔金科里站，然后打车">Поездом: до станции Алтынколь, далее такси</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== КАРТА ==================== -->
   <section class="section section--alt" id="map-section">
-    <div class="container">
-      <h2 class="section__title" data-ru="Мы на карте" data-kz="Біз картада" data-zh="我们在地图上">Мы на карте</h2>
-      <p class="section__subtitle" data-ru="Граница Казахстана и Китая, Панфиловский район, область Жетісу"
-         data-kz="Қазақстан мен Қытай шекарасы, Панфилов ауданы, Жетісу облысы"
-         data-zh="哈萨克斯坦和中国边境，潘菲洛夫区，杰特苏州">Граница Казахстана и Китая, Панфиловский район, область Жетісу</p>
-    </div>
-    <div class="map-wrapper">
-      <div id="map"></div>
-    </div>
+    <div class="container"><h2 class="section__title" data-ru="Мы на карте" data-kz="Біз картада" data-zh="我们在地图上">Мы на карте</h2><p class="section__subtitle" data-ru="Граница Казахстана и Китая, Панфиловский район, область Жетісу" data-kz="Қазақстан мен Қытай шекарасы, Панфилов ауданы, Жетісу облысы" data-zh="哈萨克斯坦和中国边境，潘菲洛夫区，杰特苏州">Граница Казахстана и Китая, Панфиловский район, область Жетісу</p></div>
+    <div class="map-wrapper"><div id="map"></div></div>
   </section>
 
-  <!-- ==================== НОВОСТИ ==================== -->
   <section class="section" id="news">
     <div class="container">
       <h2 class="section__title" data-ru="Новости" data-kz="Жаңалықтар" data-zh="新闻">Новости</h2>
       <div class="card-grid card-grid--3">
-        <article class="card card--padded">
-          <span class="card__tag" data-ru="Январь 2026" data-kz="Қаңтар 2026" data-zh="2026年1月">Январь 2026</span>
-          <h3 class="card__title" data-ru="Система Face ID запущена" data-kz="Face ID жүйесі іске қосылды" data-zh="Face ID系统上线">Система Face ID запущена</h3>
-          <p data-ru="На пункте пропуска «Нур Жолы» работает биометрическая система — проход границы за 1–2 секунды."
-             data-kz="«Нұр Жолы» өткізу пунктінде биометриялық жүйе жұмыс істейді — шекарадан өту 1–2 секунд."
-             data-zh="在«努尔·若雷»口岸，生物识别系统已投入使用 — 过境仅需1–2秒。">На пункте пропуска «Нур Жолы» работает биометрическая система — проход границы за 1–2 секунды.</p>
-        </article>
-        <article class="card card--padded">
-          <span class="card__tag" data-ru="2025" data-kz="2025" data-zh="2025年">2025</span>
-          <h3 class="card__title" data-ru="20-летие МЦПС «Хоргос»" data-kz="«Қорғас» ХШЫО 20 жылдығы" data-zh="«霍尔果斯»国际跨境合作中心20周年">20-летие МЦПС «Хоргос»</h3>
-          <p data-ru="Центр отметил 20 лет с момента основания. За это время он стал крупнейшим хабом в Центральной Азии."
-             data-kz="Орталық құрылғанына 20 жыл толды. Осы уақыт ішінде ол Орталық Азиядағы ең ірі хабқа айналды."
-             data-zh="中心庆祝成立20周年。在此期间，它已成为中亚最大的枢纽。">Центр отметил 20 лет с момента основания. За это время он стал крупнейшим хабом в Центральной Азии.</p>
-        </article>
-        <article class="card card--padded">
-          <span class="card__tag" data-ru="2025" data-kz="2025" data-zh="2025年">2025</span>
-          <h3 class="card__title" data-ru="Рекордный поток — 6 млн" data-kz="Рекордтық ағын — 6 млн" data-zh="创纪录流量 — 600万">Рекордный поток — 6 млн</h3>
-          <p data-ru="За 2025 год границу через МЦПС пересекли более 6 миллионов раз — абсолютный рекорд."
-             data-kz="2025 жылы ХШЫО арқылы шекарадан 6 миллионнан астам рет өтті — абсолютті рекорд."
-             data-zh="2025年，通过国际跨境合作中心过境次数超过600万 — 绝对纪录。">За 2025 год границу через МЦПС пересекли более 6 миллионов раз — абсолютный рекорд.</p>
-        </article>
+        <article class="card card--padded"><span class="card__tag" data-ru="Январь 2026" data-kz="Қаңтар 2026" data-zh="2026年1月">Январь 2026</span><h3 class="card__title" data-ru="Система Face ID запущена" data-kz="Face ID жүйесі іске қосылды" data-zh="Face ID系统上线">Система Face ID запущена</h3><p data-ru="На пункте пропуска «Нур Жолы» работает биометрическая система — проход границы за 1–2 секунды." data-kz="«Нұр Жолы» өткізу пунктінде биометриялық жүйе жұмыс істейді — шекарадан өту 1–2 секунд." data-zh="在«努尔·若雷»口岸，生物识别系统已投入使用 — 过境仅需1–2秒。">На пункте пропуска «Нур Жолы» работает биометрическая система — проход границы за 1–2 секунды.</p></article>
+        <article class="card card--padded"><span class="card__tag" data-ru="2025" data-kz="2025" data-zh="2025年">2025</span><h3 class="card__title" data-ru="20-летие МЦПС «Хоргос»" data-kz="«Қорғас» ХШЫО 20 жылдығы" data-zh="«霍尔果斯»国际跨境合作中心20周年">20-летие МЦПС «Хоргос»</h3><p data-ru="Центр отметил 20 лет с момента основания. За это время он стал крупнейшим хабом в Центральной Азии." data-kz="Орталық құрылғанына 20 жыл толды. Осы уақыт ішінде ол Орталық Азиядағы ең ірі хабқа айналды." data-zh="中心庆祝成立20周年。在此期间，它已成为中亚最大的枢纽。">Центр отметил 20 лет с момента основания. За это время он стал крупнейшим хабом в Центральной Азии.</p></article>
+        <article class="card card--padded"><span class="card__tag" data-ru="2025" data-kz="2025" data-zh="2025年">2025</span><h3 class="card__title" data-ru="Рекордный поток — 6 млн" data-kz="Рекордтық ағын — 6 млн" data-zh="创纪录流量 — 600万">Рекордный поток — 6 млн</h3><p data-ru="За 2025 год границу через МЦПС пересекли более 6 миллионов раз — абсолютный рекорд." data-kz="2025 жылы ХШЫО арқылы шекарадан 6 миллионнан астам рет өтті — абсолютті рекорд." data-zh="2025年，通过国际跨境合作中心过境次数超过600万 — 绝对纪录。">За 2025 год границу через МЦПС пересекли более 6 миллионов раз — абсолютный рекорд.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- ==================== ПОДВАЛ ==================== -->
   <footer class="footer" id="contacts">
     <div class="ornament ornament--footer"></div>
     <div class="container">
       <div class="footer__grid">
-        <div class="footer__col">
-          <h3 class="footer__title">МЦПС «Хоргос»</h3>
-          <p data-ru="АО «Управляющая компания СЭЗ «МЦПС&nbsp;«Хоргос»"
-             data-kz="«Қорғас» ХШЫО АЭА басқарушы компаниясы» АҚ"
-             data-zh="«霍尔果斯»国际跨境合作中心经济特区管理公司">АО «Управляющая компания СЭЗ «МЦПС&nbsp;«Хоргос»</p>
-        </div>
-        <div class="footer__col">
-          <h3 class="footer__title" data-ru="Контакты" data-kz="Байланыс" data-zh="联系方式">Контакты</h3>
-          <p data-ru="Область Жетісу, Панфиловский район, с. Хоргос"
-             data-kz="Жетісу облысы, Панфилов ауданы, Қорғас а."
-             data-zh="杰特苏州，潘菲洛夫区，霍尔果斯村">Область Жетісу, Панфиловский район, с. Хоргос</p>
-          <p>+7 72831 79 901</p>
-          <p>info@khorgos.kz</p>
-        </div>
-        <div class="footer__col">
-          <h3 class="footer__title" data-ru="Навигация" data-kz="Навигация" data-zh="导航">Навигация</h3>
-          <a href="#about" data-ru="О центре" data-kz="Орталық туралы" data-zh="关于中心">О центре</a>
-          <a href="#invest" data-ru="Инвесторам" data-kz="Инвесторларға" data-zh="投资者">Инвесторам</a>
-          <a href="#visitors" data-ru="Посетителям" data-kz="Келушілерге" data-zh="游客须知">Посетителям</a>
-        </div>
+        <div class="footer__col"><h3 class="footer__title">МЦПС «Хоргос»</h3><p data-ru="АО «Управляющая компания СЭЗ «МЦПС&nbsp;«Хоргос»" data-kz="«Қорғас» ХШЫО АЭА басқарушы компаниясы» АҚ" data-zh="«霍尔果斯»国际跨境合作中心经济特区管理公司">АО «Управляющая компания СЭЗ «МЦПС&nbsp;«Хоргос»</p></div>
+        <div class="footer__col"><h3 class="footer__title" data-ru="Контакты" data-kz="Байланыс" data-zh="联系方式">Контакты</h3><p data-ru="Область Жетісу, Панфиловский район, с. Хоргос" data-kz="Жетісу облысы, Панфилов ауданы, Қорғас а." data-zh="杰特苏州，潘菲洛夫区，霍尔果斯村">Область Жетісу, Панфиловский район, с. Хоргос</p><p>+7 72831 79 901</p><p>info@khorgos.kz</p></div>
+        <div class="footer__col"><h3 class="footer__title" data-ru="Навигация" data-kz="Навигация" data-zh="导航">Навигация</h3><a href="#about" data-ru="О центре" data-kz="Орталық туралы" data-zh="关于中心">О центре</a><a href="#invest" data-ru="Инвесторам" data-kz="Инвесторларға" data-zh="投资者">Инвесторам</a><a href="#visitors" data-ru="Посетителям" data-kz="Келушілерге" data-zh="游客须知">Посетителям</a></div>
       </div>
-      <div class="footer__bottom">
-        <p data-ru="© 2026 АО «УК СЭЗ «МЦПС «Хоргос». Все права защищены."
-           data-kz="© 2026 «Қорғас» ХШЫО АЭА БК» АҚ. Барлық құқықтар қорғалған."
-           data-zh="© 2026 «霍尔果斯»国际跨境合作中心经济特区管理公司。版权所有。">© 2026 АО «УК СЭЗ «МЦПС «Хоргос». Все права защищены.</p>
-      </div>
+      <div class="footer__bottom"><p data-ru="© 2026 АО «УК СЭЗ «МЦПС «Хоргос». Все права защищены." data-kz="© 2026 «Қорғас» ХШЫО АЭА БК» АҚ. Барлық құқықтар қорғалған." data-zh="© 2026 «霍尔果斯»国际跨境合作中心经济特区管理公司。版权所有。">© 2026 АО «УК СЭЗ «МЦПС «Хоргос». Все права защищены.</p></div>
     </div>
   </footer>
 
+  <script>
+    // ===== КАРТА =====
+    const mapEl = document.getElementById('map');
+    if (mapEl) {
+      const map = L.map('map').setView([44.239361, 80.351111], 14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; OpenStreetMap contributors',maxZoom:18}).addTo(map);
+      const redIcon = L.icon({iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',iconSize:[25,41],iconAnchor:[12,41],popupAnchor:[1,-34],shadowSize:[41,41]});
+      L.marker([44.239361,80.351111],{icon:redIcon}).addTo(map).bindPopup('<strong>МЦПС «Хоргос»</strong><br>Казахстан — Китай').openPopup();
+      L.polyline([[44.255,80.340],[44.255,80.370]],{color:'#C9A84C',weight:3,dashArray:'8,8'}).addTo(map);
+      L.marker([44.265,80.351],{icon:L.divIcon({className:'',html:'<div style="background:rgba(10,22,40,0.85);color:#FFF;padding:6px 14px;border-radius:4px;font-family:Tenor Sans,serif;font-size:14px;letter-spacing:1px;white-space:nowrap;">KAZAKHSTAN</div>',iconSize:[0,0],iconAnchor:[70,8]})}).addTo(map);
+      L.marker([44.220,80.351],{icon:L.divIcon({className:'',html:'<div style="background:rgba(10,22,40,0.85);color:#C9A84C;padding:6px 14px;border-radius:4px;font-family:Tenor Sans,serif;font-size:14px;letter-spacing:1px;white-space:nowrap;">CHINA</div>',iconSize:[0,0],iconAnchor:[50,20]})}).addTo(map);
+    }
+
+    // ===== ЯЗЫКИ =====
+    const langBtns = document.querySelectorAll('.lang-btn');
+    let currentLang = localStorage.getItem('lang') || 'ru';
+    function applyLanguage(lang) {
+      document.querySelectorAll('[data-ru]').forEach(function(el) {
+        const t = el.getAttribute('data-'+lang);
+        if (t) el.innerHTML = t;
+      });
+      langBtns.forEach(function(b) {
+        b.classList.remove('active');
+        if (b.getAttribute('data-lang')===lang) b.classList.add('active');
+      });
+      localStorage.setItem('lang', lang);
+      currentLang = lang;
+    }
+    langBtns.forEach(function(b) {
+      b.addEventListener('click', function() { applyLanguage(b.getAttribute('data-lang')); });
+    });
+    applyLanguage(currentLang);
+
+    // ===== ПРОГРЕСС-БАР =====
+    const meterSection = document.getElementById('invest');
+    const occupancyValue = document.getElementById('occupancyValue');
+    const occupancyFill = document.getElementById('occupancyFill');
+    const targetPercent = 82;
+    let animated = false;
+    function animateMeter() {
+      if (animated || !meterSection) return;
+      const top = meterSection.getBoundingClientRect().top;
+      if (top < window.innerHeight - 100) {
+        animated = true;
+        let cur = 0;
+        const step = targetPercent / 60;
+        const t = setInterval(function() {
+          cur += step;
+          if (cur >= targetPercent) { cur = targetPercent; clearInterval(t); }
+          occupancyValue.textContent = Math.round(cur) + '%';
+          occupancyFill.style.width = cur + '%';
+        }, 16);
+      }
+    }
+    window.addEventListener('scroll', animateMeter);
+    animateMeter();
+  </script>
 </body>
 </html>
