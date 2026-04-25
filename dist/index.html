@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>МЦПС «Хоргос» — Международный центр приграничного сотрудничества</title>
+
+  <!-- Шрифты -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Tenor+Sans&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet для карты -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Наш CSS -->
+  <script type="module" crossorigin src="/assets/index-ZkwZeDEA.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DvgDHwRm.css">
+</head>
+<body>
+
+  <!-- ==================== ШАПКА ==================== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <img src="/logo.png" alt="МЦПС Хоргос" class="logo__img" />
+      </a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="kz">KZ</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+      </div>
+      <nav class="nav">
+        <a href="#about" data-ru="О центре" data-kz="Орталық туралы" data-zh="关于中心">О центре</a>
+        <a href="#invest" data-ru="Инвесторам" data-kz="Инвесторларға" data-zh="投资者">Инвесторам</a>
+        <a href="#visitors" data-ru="Посетителям" data-kz="Келушілерге" data-zh="游客">Посетителям</a>
+        <a href="#news" data-ru="Новости" data-kz="Жаңалықтар" data-zh="新闻">Новости</a>
+        <a href="#contacts" data-ru="Контакты" data-kz="Байланыс" data-zh="联系方式">Контакты</a>
+      </nav>
+    </div>
+    <div class="ornament ornament--header"></div>
+  </header>
+
+  <!-- ==================== ГЛАВНЫЙ ЭКРАН ==================== -->
+  <section class="hero">
+    <div class="hero__watermark" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <h1 class="hero__title"
+          data-ru="Ваши ворота<br />в Азию"
+          data-kz="Азияға апарар<br />қақпаңыз"
+          data-zh="通往亚洲<br />的大门">Ваши ворота<br />в Азию</h1>
+
+      <p class="hero__desc"
+         data-ru="Единственный в мире трансграничный центр сотрудничества. Одна&nbsp;территория — две&nbsp;страны, безграничные&nbsp;возможности"
+         data-kz="Әлемдегі жалғыз трансшекаралық ынтымақтастық орталығы. Бір&nbsp;аумақ — екі&nbsp;ел, шексіз&nbsp;мүмкіндіктер"
+         data-zh="世界上唯一的跨境合作中心。一个&nbsp;区域&nbsp;—&nbsp;两个&nbsp;国家，无限&nbsp;机遇">Единственный в мире трансграничный центр сотрудничества. Одна&nbsp;территория — две&nbsp;страны, безграничные&nbsp;возможности</p>
+
+      <div class="hero__buttons">
+        <a href="#invest" class="btn btn--primary"
+           data-ru="Стать инвестором"
+           data-kz="Инвестор болу"
+           data-zh="成为投资者">Стать инвестором</a>
+        <a href="#visitors" class="btn btn--ghost"
+           data-ru="Планирую поездку"
+           data-kz="Сапарды жоспарлау"
+           data-zh="计划行程">Планирую поездку</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ЦИФРЫ ==================== -->
+  <section class="numbers">
+    <div class="container">
+      <div class="numbers__grid">
+        <div class="numbers__item">
+          <span class="numbers__value">0</span>
+          <span class="numbers__label" data-ru="общая площадь" data-kz="жалпы аумағы" data-zh="总面积">общая площадь</span>
+        </div>
+        <div class="numbers__item">
+          <span class="numbers__value">0</span>
+          <span class="numbers__label" data-ru="посетителей в сутки" data-kz="күніне келушілер" data-zh="每日访客">посетителей в сутки</span>
+        </div>
+        <div class="numbers__item">
+          <span class="numbers__value">0</span>
+          <span class="numbers__label" data-ru="компаний-резидентов" data-kz="резидент-компаниялар" data-zh="入驻企业">компаний-резидентов</span>
+        </div>
+        <div class="numbers__item">
+          <span class="numbers__value">0</span>
+          <span class="numbers__label" data-ru="товарооборот с 2012" data-kz="2012 жылдан бергі тауар айналымы" data-zh="2012年至今贸易额">товарооборот с 2012</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament ornament--divider"></div>
+
+  <!-- ==================== О ЦЕНТРЕ ==================== -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section__title" data-ru="О центре" data-kz="Орталық туралы" data-zh="关于中心">О центре</h2>
+      <div class="about__grid">
+        <div class="about__text flow">
+          <p data-ru="Международный центр приграничного сотрудничества «Хоргос»&nbsp;— уникальный проект, работающий по принципу «одна&nbsp;территория&nbsp;— две&nbsp;страны». Расположен на границе Казахстана и Китая."
+             data-kz="«Қорғас» халықаралық шекара маңы ынтымақтастық орталығы&nbsp;— «бір&nbsp;аумақ&nbsp;— екі&nbsp;ел» қағидаты бойынша жұмыс істейтін бірегей жоба. Қазақстан мен Қытай шекарасында орналасқан."
+             data-zh="«霍尔果斯»国际跨境合作中心&nbsp;— 一个独特的项目，按照«一个&nbsp;区域&nbsp;—&nbsp;两个&nbsp;国家»的原则运作。位于哈萨克斯坦和中国边境。">Международный центр приграничного сотрудничества «Хоргос»&nbsp;— уникальный проект, работающий по принципу «одна&nbsp;территория&nbsp;— две&nbsp;страны». Расположен на границе Казахстана и Китая.</p>
+          <p data-ru="На территории Центра действует специальная экономическая зона с особым правовым режимом. Товары из более чем 40&nbsp;стран мира доступны без таможенных пошлин."
+             data-kz="Орталық аумағында ерекше құқықтық режимі бар арнайы экономикалық аймақ жұмыс істейді. Әлемнің 40-тан астам елінің тауарлары кедендік бажсыз қолжетімді."
+             data-zh="中心境内设有特殊法律制度的特别经济区。来自世界40多个国家的商品免征关税。">На территории Центра действует специальная экономическая зона с особым правовым режимом. Товары из более чем 40&nbsp;стран мира доступны без таможенных пошлин.</p>
+        </div>
+        <ul class="feature-list">
+          <li class="feature-list__item" data-ru="Единая территория Казахстана и Китая" data-kz="Қазақстан мен Қытайдың бірыңғай аумағы" data-zh="哈萨克斯坦和中国的统一区域">Единая территория Казахстана и Китая</li>
+          <li class="feature-list__item" data-ru="Безвизовый режим на 30 дней" data-kz="30 күнге визасыз режим" data-zh="30天免签制度">Безвизовый режим на 30 дней</li>
+          <li class="feature-list__item" data-ru="Более 5&nbsp;000 магазинов" data-kz="5&nbsp;000-нан астам дүкен" data-zh="超过5&nbsp;000家商店">Более 5&nbsp;000 магазинов</li>
+          <li class="feature-list__item" data-ru="Товары из 40+ стран мира" data-kz="Әлемнің 40+ елінің тауарлары" data-zh="来自40多个国家的商品">Товары из 40+ стран мира</li>
+          <li class="feature-list__item" data-ru="Современный грузовой терминал" data-kz="Заманауи жүк терминалы" data-zh="现代化货运站">Современный грузовой терминал</li>
+          <li class="feature-list__item" data-ru="Система Face ID — проход за 1&nbsp;секунду" data-kz="Face ID жүйесі — 1&nbsp;секундта өту" data-zh="Face ID系统 — 1&nbsp;秒通行">Система Face ID — проход за 1&nbsp;секунду</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ИНВЕСТОРАМ ==================== -->
+  <section class="section section--alt" id="invest">
+    <div class="container">
+      <h2 class="section__title" data-ru="Инвесторам" data-kz="Инвесторларға" data-zh="投资者">Инвесторам</h2>
+      <p class="section__subtitle" data-ru="Специальная экономическая зона «Хоргос» предлагает уникальные&nbsp;условия"
+         data-kz="«Қорғас» арнайы экономикалық аймағы бірегей&nbsp;шарттар ұсынады"
+         data-zh="«霍尔果斯»经济特区提供独特的&nbsp;条件">Специальная экономическая зона «Хоргос» предлагает уникальные&nbsp;условия</p>
+
+      <h3 class="subsection__title" data-ru="Налоговые преференции" data-kz="Салықтық жеңілдіктер" data-zh="税收优惠">Налоговые преференции</h3>
+      <div class="card-grid card-grid--3">
+        <div class="card"><strong>0%</strong> — <span data-ru="Корпоративный подоходный налог" data-kz="Корпоративтік табыс салығы" data-zh="企业所得税">Корпоративный подоходный налог</span></div>
+        <div class="card"><strong>0%</strong> — <span data-ru="Налог на имущество" data-kz="Мүлік салығы" data-zh="财产税">Налог на имущество</span></div>
+        <div class="card"><strong>0%</strong> — <span data-ru="Земельный налог" data-kz="Жер салығы" data-zh="土地税">Земельный налог</span></div>
+        <div class="card"><strong>0%</strong> — <span data-ru="НДС на территории СЭЗ" data-kz="АЭА аумағында ҚҚС" data-zh="特区内增值税">НДС на территории СЭЗ</span></div>
+      </div>
+
+      <h3 class="subsection__title" data-ru="Преимущества" data-kz="Артықшылықтар" data-zh="优势">Преимущества</h3>
+      <div class="card-grid card-grid--3">
+        <div class="card" data-ru="Готовая инфраструктура" data-kz="Дайын инфрақұрылым" data-zh="现成的基础设施">Готовая инфраструктура</div>
+        <div class="card" data-ru="Прямой доступ к рынку КНР" data-kz="ҚХР нарығына тікелей қол жеткізу" data-zh="直接进入中国市场">Прямой доступ к рынку КНР</div>
+        <div class="card" data-ru="Нет квот на иностранную рабочую силу" data-kz="Шетелдік жұмыс күшіне квота жоқ" data-zh="无外籍劳工配额限制">Нет квот на иностранную рабочую силу</div>
+        <div class="card" data-ru="Бесплатное землепользование до 2041 года" data-kz="2041 жылға дейін тегін жер пайдалану" data-zh="2041年前免费土地使用">Бесплатное землепользование до 2041 года</div>
+        <div class="card" data-ru="Гранты до $150 000 на инфраструктуру" data-kz="Инфрақұрылымға $150 000 дейін гранттар" data-zh="基础设施资助高达15万美元">Гранты до $150 000 на инфраструктуру</div>
+        <div class="card" data-ru="ИП может быть участником СЭЗ" data-kz="ЖК АЭА қатысушысы бола алады" data-zh="个体工商户可成为特区参与者">ИП может быть участником СЭЗ</div>
+      </div>
+
+      <!-- Индикатор заполняемости -->
+      <div class="meter">
+        <div class="meter__header">
+          <span class="meter__label" data-ru="Заполняемость территории СЭЗ" data-kz="АЭА аумағының толуы" data-zh="特区面积占用率">Заполняемость территории СЭЗ</span>
+          <span class="meter__value" id="occupancyValue">0%</span>
+        </div>
+        <div class="meter__track">
+          <div class="meter__fill" id="occupancyFill" style="width: 0%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ПОСЕТИТЕЛЯМ ==================== -->
+  <section class="section" id="visitors">
+    <div class="container">
+      <h2 class="section__title" data-ru="Посетителям" data-kz="Келушілерге" data-zh="游客须知">Посетителям</h2>
+      <p class="section__subtitle" data-ru="Всё, что нужно знать перед поездкой"
+         data-kz="Сапар алдында білу қажет барлық нәрсе"
+         data-zh="出行前须知">Всё, что нужно знать перед поездкой</p>
+      <div class="card-grid card-grid--2">
+        <div class="card card--padded">
+          <h3 class="card__title" data-ru="Правила ввоза товаров" data-kz="Тауарларды әкелу ережелері" data-zh="商品携带规定">Правила ввоза товаров</h3>
+          <p data-ru="Беспошлинный ввоз: до <strong>50 кг</strong> и <strong>€1 500</strong>"
+             data-kz="Бажсыз әкелу: <strong>50 кг</strong> және <strong>€1 500</strong> дейін"
+             data-zh="免税携带：不超过<strong>50公斤</strong>和<strong>1,500欧元</strong>">Беспошлинный ввоз: до <strong>50 кг</strong> и <strong>€1 500</strong></p>
+          <p data-ru="Свыше нормы — пошлина 30% от стоимости, но не менее €4 за 1 кг"
+             data-kz="Нормадан асып кетсе — құнының 30% баж салығы, бірақ 1 кг үшін €4 кем емес"
+             data-zh="超出部分 — 价值的30%关税，每公斤不少于4欧元">Свыше нормы — пошлина 30% от стоимости, но не менее €4 за 1 кг</p>
+        </div>
+        <div class="card card--padded">
+          <h3 class="card__title" data-ru="Режим работы" data-kz="Жұмыс режимі" data-zh="营业时间">Режим работы</h3>
+          <p data-ru="Ежедневно, без выходных" data-kz="Күн сайын, демалыссыз" data-zh="每天，无休">Ежедневно, без выходных</p>
+          <p data-ru="Казахстанская часть: 09:00 – 18:00" data-kz="Қазақстан бөлігі: 09:00 – 18:00" data-zh="哈方区域：09:00 – 18:00">Казахстанская часть: 09:00 – 18:00</p>
+          <p data-ru="Китайская часть: 10:00 – 19:00 (время Пекина)" data-kz="Қытай бөлігі: 10:00 – 19:00 (Пекин уақыты)" data-zh="中方区域：10:00 – 19:00（北京时间）">Китайская часть: 10:00 – 19:00 (время Пекина)</p>
+        </div>
+        <div class="card card--padded">
+          <h3 class="card__title" data-ru="Документы" data-kz="Құжаттар" data-zh="证件">Документы</h3>
+          <p data-ru="Гражданам Казахстана — удостоверение личности" data-kz="Қазақстан азаматтарына — жеке куәлік" data-zh="哈萨克斯坦公民 — 身份证">Гражданам Казахстана — удостоверение личности</p>
+          <p data-ru="Гражданам РФ — загранпаспорт" data-kz="РФ азаматтарына — шетелдік паспорт" data-zh="俄罗斯公民 — 出国护照">Гражданам РФ — загранпаспорт</p>
+          <p data-ru="Безвизовый режим на 30 дней" data-kz="30 күнге визасыз режим" data-zh="30天免签">Безвизовый режим на 30 дней</p>
+        </div>
+        <div class="card card--padded">
+          <h3 class="card__title" data-ru="Как добраться" data-kz="Қалай жетуге болады" data-zh="如何到达">Как добраться</h3>
+          <p data-ru="Автомобилем: трасса А-2 Алматы — Хоргос (~300 км)" data-kz="Автокөлікпен: А-2 Алматы — Қорғас тас жолы (~300 км)" data-zh="自驾：A-2公路 阿拉木图 — 霍尔果斯（约300公里）">Автомобилем: трасса А-2 Алматы — Хоргос (~300 км)</p>
+          <p data-ru="Автобусом: от автовокзала «Сайран» (Алматы)" data-kz="Автобуспен: «Сайран» автовокзалынан (Алматы)" data-zh="公交：从«萨伊兰»汽车站（阿拉木图）">Автобусом: от автовокзала «Сайран» (Алматы)</p>
+          <p data-ru="Поездом: до станции Алтынколь, далее такси" data-kz="Пойызбен: Алтынкөл станциясына дейін, одан әрі такси" data-zh="火车：至阿尔金科里站，然后打车">Поездом: до станции Алтынколь, далее такси</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== КАРТА ==================== -->
+  <section class="section section--alt" id="map-section">
+    <div class="container">
+      <h2 class="section__title" data-ru="Мы на карте" data-kz="Біз картада" data-zh="我们在地图上">Мы на карте</h2>
+      <p class="section__subtitle" data-ru="Граница Казахстана и Китая, Панфиловский район, область Жетісу"
+         data-kz="Қазақстан мен Қытай шекарасы, Панфилов ауданы, Жетісу облысы"
+         data-zh="哈萨克斯坦和中国边境，潘菲洛夫区，杰特苏州">Граница Казахстана и Китая, Панфиловский район, область Жетісу</p>
+    </div>
+    <div class="map-wrapper">
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- ==================== НОВОСТИ ==================== -->
+  <section class="section" id="news">
+    <div class="container">
+      <h2 class="section__title" data-ru="Новости" data-kz="Жаңалықтар" data-zh="新闻">Новости</h2>
+      <div class="card-grid card-grid--3">
+        <article class="card card--padded">
+          <span class="card__tag" data-ru="Январь 2026" data-kz="Қаңтар 2026" data-zh="2026年1月">Январь 2026</span>
+          <h3 class="card__title" data-ru="Система Face ID запущена" data-kz="Face ID жүйесі іске қосылды" data-zh="Face ID系统上线">Система Face ID запущена</h3>
+          <p data-ru="На пункте пропуска «Нур Жолы» работает биометрическая система — проход границы за 1–2 секунды."
+             data-kz="«Нұр Жолы» өткізу пунктінде биометриялық жүйе жұмыс істейді — шекарадан өту 1–2 секунд."
+             data-zh="在«努尔·若雷»口岸，生物识别系统已投入使用 — 过境仅需1–2秒。">На пункте пропуска «Нур Жолы» работает биометрическая система — проход границы за 1–2 секунды.</p>
+        </article>
+        <article class="card card--padded">
+          <span class="card__tag" data-ru="2025" data-kz="2025" data-zh="2025年">2025</span>
+          <h3 class="card__title" data-ru="20-летие МЦПС «Хоргос»" data-kz="«Қорғас» ХШЫО 20 жылдығы" data-zh="«霍尔果斯»国际跨境合作中心20周年">20-летие МЦПС «Хоргос»</h3>
+          <p data-ru="Центр отметил 20 лет с момента основания. За это время он стал крупнейшим хабом в Центральной Азии."
+             data-kz="Орталық құрылғанына 20 жыл толды. Осы уақыт ішінде ол Орталық Азиядағы ең ірі хабқа айналды."
+             data-zh="中心庆祝成立20周年。在此期间，它已成为中亚最大的枢纽。">Центр отметил 20 лет с момента основания. За это время он стал крупнейшим хабом в Центральной Азии.</p>
+        </article>
+        <article class="card card--padded">
+          <span class="card__tag" data-ru="2025" data-kz="2025" data-zh="2025年">2025</span>
+          <h3 class="card__title" data-ru="Рекордный поток — 6 млн" data-kz="Рекордтық ағын — 6 млн" data-zh="创纪录流量 — 600万">Рекордный поток — 6 млн</h3>
+          <p data-ru="За 2025 год границу через МЦПС пересекли более 6 миллионов раз — абсолютный рекорд."
+             data-kz="2025 жылы ХШЫО арқылы шекарадан 6 миллионнан астам рет өтті — абсолютті рекорд."
+             data-zh="2025年，通过国际跨境合作中心过境次数超过600万 — 绝对纪录。">За 2025 год границу через МЦПС пересекли более 6 миллионов раз — абсолютный рекорд.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ПОДВАЛ ==================== -->
+  <footer class="footer" id="contacts">
+    <div class="ornament ornament--footer"></div>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <h3 class="footer__title">МЦПС «Хоргос»</h3>
+          <p data-ru="АО «Управляющая компания СЭЗ «МЦПС&nbsp;«Хоргос»"
+             data-kz="«Қорғас» ХШЫО АЭА басқарушы компаниясы» АҚ"
+             data-zh="«霍尔果斯»国际跨境合作中心经济特区管理公司">АО «Управляющая компания СЭЗ «МЦПС&nbsp;«Хоргос»</p>
+        </div>
+        <div class="footer__col">
+          <h3 class="footer__title" data-ru="Контакты" data-kz="Байланыс" data-zh="联系方式">Контакты</h3>
+          <p data-ru="Область Жетісу, Панфиловский район, с. Хоргос"
+             data-kz="Жетісу облысы, Панфилов ауданы, Қорғас а."
+             data-zh="杰特苏州，潘菲洛夫区，霍尔果斯村">Область Жетісу, Панфиловский район, с. Хоргос</p>
+          <p>+7 72831 79 901</p>
+          <p>info@khorgos.kz</p>
+        </div>
+        <div class="footer__col">
+          <h3 class="footer__title" data-ru="Навигация" data-kz="Навигация" data-zh="导航">Навигация</h3>
+          <a href="#about" data-ru="О центре" data-kz="Орталық туралы" data-zh="关于中心">О центре</a>
+          <a href="#invest" data-ru="Инвесторам" data-kz="Инвесторларға" data-zh="投资者">Инвесторам</a>
+          <a href="#visitors" data-ru="Посетителям" data-kz="Келушілерге" data-zh="游客须知">Посетителям</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p data-ru="© 2026 АО «УК СЭЗ «МЦПС «Хоргос». Все права защищены."
+           data-kz="© 2026 «Қорғас» ХШЫО АЭА БК» АҚ. Барлық құқықтар қорғалған."
+           data-zh="© 2026 «霍尔果斯»国际跨境合作中心经济特区管理公司。版权所有。">© 2026 АО «УК СЭЗ «МЦПС «Хоргос». Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
