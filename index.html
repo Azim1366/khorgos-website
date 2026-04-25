@@ -257,7 +257,39 @@
     </div>
   </footer>
 
-  <script>
+    <script>
+    // ===== АНИМАЦИЯ ЦИФР =====
+    const valueElements = document.querySelectorAll('.numbers__value');
+    const targets = [
+      { value: 5.6, suffix: ' км²', decimals: 1 },
+      { value: 5000, suffix: '', decimals: 0 },
+      { value: 1200, suffix: '+', decimals: 0 },
+      { value: 15, suffix: ' млрд', decimals: 0 }
+    ];
+    const duration = 3600;
+    const interval = 20;
+    const steps = duration / interval;
+
+    function animateNumbers() {
+      valueElements.forEach(function(el, i) {
+        const t = targets[i];
+        if (!t) return;
+        let step = 0;
+        const timer = setInterval(function() {
+          step++;
+          const progress = step / steps;
+          const eased = 1 - Math.pow(1 - progress, 3);
+          let val = t.value * eased;
+          el.textContent = (t.decimals > 0 ? val.toFixed(t.decimals) : Math.floor(val)) + t.suffix;
+          if (step >= steps) {
+            clearInterval(timer);
+            el.textContent = (t.decimals > 0 ? t.value.toFixed(t.decimals) : t.value) + t.suffix;
+          }
+        }, interval);
+      });
+    }
+    animateNumbers();
+
     // ===== КАРТА =====
     const mapEl = document.getElementById('map');
     if (mapEl) {
@@ -266,8 +298,8 @@
       const redIcon = L.icon({iconUrl:'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',shadowUrl:'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',iconSize:[25,41],iconAnchor:[12,41],popupAnchor:[1,-34],shadowSize:[41,41]});
       L.marker([44.239361,80.351111],{icon:redIcon}).addTo(map).bindPopup('<strong>МЦПС «Хоргос»</strong><br>Казахстан — Китай').openPopup();
       L.polyline([[44.255,80.340],[44.255,80.370]],{color:'#C9A84C',weight:3,dashArray:'8,8'}).addTo(map);
-      L.marker([44.265,80.351],{icon:L.divIcon({className:'',html:'<div style="background:rgba(10,22,40,0.85);color:#FFF;padding:6px 14px;border-radius:4px;font-family:Tenor Sans,serif;font-size:14px;letter-spacing:1px;white-space:nowrap;">KAZAKHSTAN</div>',iconSize:[0,0],iconAnchor:[70,8]})}).addTo(map);
-      L.marker([44.220,80.351],{icon:L.divIcon({className:'',html:'<div style="background:rgba(10,22,40,0.85);color:#C9A84C;padding:6px 14px;border-radius:4px;font-family:Tenor Sans,serif;font-size:14px;letter-spacing:1px;white-space:nowrap;">CHINA</div>',iconSize:[0,0],iconAnchor:[50,20]})}).addTo(map);
+      L.marker([44.265,80.351],{icon:L.divIcon({className:'',html:'<div style="background:rgba(10,22,40,0.85);color:#FFF;padding:6px 14px;border-radius:4px;font-family:Tenor Sans,serif;font-size:14px;letter-spacing:1px;">KAZAKHSTAN</div>',iconSize:[0,0],iconAnchor:[70,8]})}).addTo(map);
+      L.marker([44.220,80.351],{icon:L.divIcon({className:'',html:'<div style="background:rgba(10,22,40,0.85);color:#C9A84C;padding:6px 14px;border-radius:4px;font-family:Tenor Sans,serif;font-size:14px;letter-spacing:1px;">CHINA</div>',iconSize:[0,0],iconAnchor:[50,20]})}).addTo(map);
     }
 
     // ===== ЯЗЫКИ =====
@@ -302,7 +334,7 @@
       if (top < window.innerHeight - 100) {
         animated = true;
         let cur = 0;
-        const step = targetPercent / 60;
+        const step = targetPercent / 120;
         const t = setInterval(function() {
           cur += step;
           if (cur >= targetPercent) { cur = targetPercent; clearInterval(t); }
@@ -312,7 +344,6 @@
       }
     }
     window.addEventListener('scroll', animateMeter);
-    animateMeter();
   </script>
 </body>
 </html>
