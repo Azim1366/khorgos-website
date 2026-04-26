@@ -121,6 +121,15 @@
       .hero__buttons{flex-direction:column;align-items:center}
       .section{padding:48px 0}
     }
+        .gallery__main{position:relative;display:flex;align-items:center;justify-content:center}
+    .gallery__img{width:100%;max-height:450px;object-fit:cover;border-radius:4px;border:1px solid rgba(255,255,255,0.15)}
+    .gallery__arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.8);border:1px solid rgba(255,255,255,0.2);color:#FFF;font-size:32px;width:44px;height:44px;border-radius:4px;cursor:pointer;z-index:2;transition:all 0.25s;line-height:1}
+    .gallery__arrow:hover{background:rgba(201,168,76,0.3);border-color:#C9A84C}
+    .gallery__arrow--left{left:12px}
+    .gallery__arrow--right{right:12px}
+    .gallery__dots{display:flex;justify-content:center;gap:10px;margin-top:16px}
+    .gallery__dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);background:transparent;cursor:pointer;transition:all 0.3s}
+    .gallery__dot.active{background:#C9A84C;border-color:#C9A84C}
   </style>
 </head>
 <body>
@@ -184,6 +193,15 @@
           <li class="feature-list__item" data-ru="Современный грузовой терминал" data-kz="Заманауи жүк терминалы" data-zh="现代化货运站">Современный грузовой терминал</li>
           <li class="feature-list__item" data-ru="Система Face ID — проход за 1&nbsp;секунду" data-kz="Face ID жүйесі — 1&nbsp;секундта өту" data-zh="Face ID系统 — 1&nbsp;秒通行">Система Face ID — проход за 1&nbsp;секунду</li>
         </ul>
+      </div>
+            <!-- Галерея -->
+      <div class="gallery" style="margin-top:40px;">
+        <div class="gallery__main">
+          <button class="gallery__arrow gallery__arrow--left">‹</button>
+          <img id="galleryImage" src="img1.jpg" alt="МЦПС Хоргос" class="gallery__img" />
+          <button class="gallery__arrow gallery__arrow--right">›</button>
+        </div>
+        <div class="gallery__dots" id="galleryDots"></div>
       </div>
     </div>
   </section>
@@ -343,6 +361,36 @@
       }
     }
     window.addEventListener('scroll', animateMeter);
+        // ===== ГАЛЕРЕЯ =====
+    const images = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg'];
+    let currentSlide = 0;
+    const galleryImg = document.getElementById('galleryImage');
+    const dotsContainer = document.getElementById('galleryDots');
+
+    images.forEach(function(_, i) {
+      const dot = document.createElement('button');
+      dot.className = 'gallery__dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', function() { goToSlide(i); });
+      dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll('.gallery__dot');
+
+    function goToSlide(n) {
+      currentSlide = n;
+      galleryImg.src = images[currentSlide];
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === currentSlide); });
+    }
+
+    document.querySelector('.gallery__arrow--left').addEventListener('click', function() {
+      goToSlide((currentSlide - 1 + images.length) % images.length);
+    });
+    document.querySelector('.gallery__arrow--right').addEventListener('click', function() {
+      goToSlide((currentSlide + 1) % images.length);
+    });
+
+    setInterval(function() {
+      goToSlide((currentSlide + 1) % images.length);
+    }, 5000);
   </script>
 </body>
 </html>
